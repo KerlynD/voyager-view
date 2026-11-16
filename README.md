@@ -140,16 +140,14 @@ main) with `canJoinAllSpaces`, `fullScreenAuxiliary`, `stationary` and `ignoresC
 level is `CGShieldingWindowLevel()`, the level above displays that a game has captured with
 `CGDisplayCapture`.
 
-**League of Legends fullscreen: not yet verified.** Until it's tested, treat it as unknown. To test:
+**League of Legends fullscreen: verified (2026-11-16).** With the default `shielding` level, the
+overlay shows over a real game in fullscreen and doesn't take focus. Layer holds and locks were tested
+during play.
 
-1. Menu bar → **Window level test (demo)**.
-2. Start a practice game in fullscreen.
-3. Watch for about 30 seconds. The overlay should appear every few seconds, with its window level
-   name in the header (`shielding`, `screenSaver`, `popUpMenu`, `statusBar`, `floating`).
-4. Note which names you saw. Turn the test off afterwards.
-
-If nothing shows over fullscreen, play in **borderless** mode instead. This section will be updated
-with the result.
+To check another game or a different level: Menu bar → **Window level test (demo)**, start the game,
+and watch. Each time the overlay appears it uses the next level (`shielding`, `screenSaver`,
+`popUpMenu`, `statusBar`, `floating`) and prints the level's name in the header. If nothing shows,
+run the game in **borderless** mode.
 
 ## Logs
 
