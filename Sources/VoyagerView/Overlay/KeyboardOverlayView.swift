@@ -99,7 +99,7 @@ struct KeyboardOverlayView: View {
         let fg = Color.contrasting(hex: model.layerColorHex) ?? palette.text
         return HStack(spacing: m.unit * 0.18) {
             Text(model.layerTitle)
-                .font(.system(size: m.unit * 0.32, weight: .semibold, design: .rounded))
+                .font(.system(size: m.unit * 0.32, weight: .semibold, design: .default))
             if model.locked {
                 Text("🔒").font(.system(size: m.unit * 0.28))
             }
@@ -109,7 +109,7 @@ struct KeyboardOverlayView: View {
             }
             if !model.hasLayout {
                 Text("· layout not loaded")
-                    .font(.system(size: m.unit * 0.22, weight: .regular, design: .rounded))
+                    .font(.system(size: m.unit * 0.22, weight: .regular, design: .default))
                     .opacity(0.7)
             }
         }
@@ -140,13 +140,13 @@ struct KeyCapView: View {
             if !isBlank {
                 VStack(spacing: unit * 0.02) {
                     Text(cap.primary)
-                        .font(.system(size: primaryFontSize, weight: .medium, design: .rounded))
+                        .font(.system(size: primaryFontSize, weight: .medium, design: .default))
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                         .minimumScaleFactor(0.45)
                     if settings.showHoldLabels, let secondary = cap.secondary {
                         Text(secondary)
-                            .font(.system(size: unit * 0.15, weight: .regular, design: .rounded))
+                            .font(.system(size: unit * 0.15, weight: .regular, design: .default))
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                             .opacity(0.65)
