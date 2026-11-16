@@ -78,6 +78,7 @@ app notices and reloads it. Bad or missing values fall back to their defaults on
 | `baseLayer` | 0 | the layer that hides the overlay |
 | `hiddenLayers` | `[]` | layers that never show the overlay (e.g. a gaming layer). Switching to one hides the overlay. |
 | `showHoldLabels` | true | small hold-action label under the main label |
+| `fontFamily` | `ABC Areal Mono` | label font family; empty or not installed = system font (SF Pro) |
 | `transparentKeys` | `dim` | `dim` shows what falls through from the base layer, dimmed; `blank` leaves the key empty |
 | `highlightPressedKeys` | true | light up keys as you press them |
 | `theme` | `dark` | `dark` or `light` |

@@ -74,6 +74,13 @@ struct SettingsView: View {
                         set: { model.settings.customAccentHex = $0.hexString ?? model.settings.customAccentHex }
                     ), supportsOpacity: false)
                 }
+                Picker("Font", selection: $model.settings.fontFamily) {
+                    Text("System").tag("")
+                    if !model.settings.fontFamily.isEmpty && !FontAvailability.isInstalled(model.settings.fontFamily) {
+                        Text("\(model.settings.fontFamily) (not installed)").tag(model.settings.fontFamily)
+                    }
+                    ForEach(FontAvailability.families, id: \.self) { Text($0).tag($0) }
+                }
                 Toggle("Show hold labels", isOn: $model.settings.showHoldLabels)
                 Picker("Transparent keys", selection: $model.settings.transparentKeys) {
                     Text("Dim (show base layer)").tag(AppSettings.TransparentKeyStyle.dim)

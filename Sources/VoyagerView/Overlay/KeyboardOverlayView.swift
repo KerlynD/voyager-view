@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import VoyagerCore
 
@@ -99,7 +100,7 @@ struct KeyboardOverlayView: View {
         let fg = Color.contrasting(hex: model.layerColorHex) ?? palette.text
         return HStack(spacing: m.unit * 0.18) {
             Text(model.layerTitle)
-                .font(.system(size: m.unit * 0.32, weight: .semibold, design: .default))
+                .font(.label(model.settings.fontFamily, size: m.unit * 0.32, weight: .semibold))
             if model.locked {
                 Text("🔒").font(.system(size: m.unit * 0.28))
             }
@@ -109,7 +110,7 @@ struct KeyboardOverlayView: View {
             }
             if !model.hasLayout {
                 Text("· layout not loaded")
-                    .font(.system(size: m.unit * 0.22, weight: .regular, design: .default))
+                    .font(.label(model.settings.fontFamily, size: m.unit * 0.22, weight: .regular))
                     .opacity(0.7)
             }
         }
@@ -140,13 +141,13 @@ struct KeyCapView: View {
             if !isBlank {
                 VStack(spacing: unit * 0.02) {
                     Text(cap.primary)
-                        .font(.system(size: primaryFontSize, weight: .medium, design: .default))
+                        .font(.label(settings.fontFamily, size: primaryFontSize, weight: .medium))
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                         .minimumScaleFactor(0.45)
                     if settings.showHoldLabels, let secondary = cap.secondary {
                         Text(secondary)
-                            .font(.system(size: unit * 0.15, weight: .regular, design: .default))
+                            .font(.label(settings.fontFamily, size: unit * 0.15, weight: .regular))
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                             .opacity(0.65)
@@ -168,6 +169,28 @@ struct KeyCapView: View {
         default: return unit * 0.18
         }
     }
+}
+
+extension Font {
+    /// The configured label font, or the system font if the family is empty or not installed.
+    static func label(_ family: String, size: CGFloat, weight: Font.Weight) -> Font {
+        guard FontAvailability.isInstalled(family) else { return .system(size: size, weight: weight) }
+        return .custom(family, size: size).weight(weight)
+    }
+}
+
+enum FontAvailability {
+    private static var cache: [String: Bool] = [:]
+
+    static func isInstalled(_ family: String) -> Bool {
+        if family.isEmpty { return false }
+        if let hit = cache[family] { return hit }
+        let ok = NSFontManager.shared.availableFontFamilies.contains(family)
+        cache[family] = ok
+        return ok
+    }
+
+    static var families: [String] { NSFontManager.shared.availableFontFamilies.sorted() }
 }
 
 extension Color {

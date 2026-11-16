@@ -36,6 +36,8 @@ public struct AppSettings: Codable, Equatable, Sendable {
     public var showHoldLabels: Bool = true
     public var transparentKeys: TransparentKeyStyle = .dim
     public var highlightPressedKeys: Bool = true
+    /// Font family for labels. Empty, or not installed, = the system font.
+    public var fontFamily: String = "ABC Areal Mono"
 
     // Behaviour
     public var showDelayMs: Double = 120
@@ -79,6 +81,7 @@ public struct AppSettings: Codable, Equatable, Sendable {
         s.hiddenLayers = Array(Set(s.hiddenLayers.filter { $0 >= 0 })).sorted()
         s.layoutHashId = s.layoutHashId.trimmingCharacters(in: .whitespacesAndNewlines)
         if s.layoutHashId.isEmpty { s.layoutHashId = Self.defaults.layoutHashId }
+        s.fontFamily = s.fontFamily.trimmingCharacters(in: .whitespacesAndNewlines)
         return s
     }
 
